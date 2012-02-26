@@ -8,11 +8,35 @@
     <name>Soluvas XMPP Shell</name>
 
     <description>Provides the Felix GoGo Shell via XMPP</description>
+    <url>https://github.com/soluvas/com.soluvas.shell.xmpp</url>
+    <inceptionYear>Feb 25, 2012</inceptionYear>
+    <organization>
+    	<name>Soluvas</name>
+    	<url>http://www.soluvas.com/</url>
+    </organization>
+    <developers>
+    	<developer>
+    		<id>ceefour</id>
+    		<name>Hendy Irawan</name>
+    		<email>hendy@soluvas.com</email>
+    		<organization>Soluvas</organization>
+    		<organizationUrl>http://www.soluvas.com/</organizationUrl>
+    	</developer>
+    </developers>
+    <scm>
+    	<connection>git:git://github.com/soluvas/com.soluvas.shell.xmpp.git</connection>
+    	<developerConnection>scm:git:git@github.com:soluvas/com.soluvas.shell.xmpp.git</developerConnection>
+    	<url>https://github.com/soluvas/com.soluvas.shell.xmpp</url>
+    </scm>
+    <issueManagement>
+    	<system>GitHub</system>
+    	<url>https://github.com/soluvas/com.soluvas.shell.xmpp/issues</url>
+    </issueManagement>
 
     <properties>
         <smack.version>3.2.1</smack.version>
         
-        <junit.version>4.7_3</junit.version>
+        <junit.version>4.10_1</junit.version>
         <osgi.version>4.2.0</osgi.version>
         <karaf.version>2.2.5</karaf.version>
     </properties>

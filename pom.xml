@@ -10,6 +10,8 @@
     <description>Provides the Felix GoGo Shell via XMPP</description>
 
     <properties>
+        <smack.version>3.2.1</smack.version>
+        
         <junit.version>4.7_3</junit.version>
         <osgi.version>4.2.0</osgi.version>
         <karaf.version>2.2.5</karaf.version>
@@ -45,12 +47,12 @@
         <dependency>
         	<groupId>org.igniterealtime.smack</groupId>
         	<artifactId>smack</artifactId>
-        	<version>3.2.1</version>
+        	<version>${smack.version}</version>
         </dependency>
         <dependency>
         	<groupId>org.igniterealtime.smack</groupId>
         	<artifactId>smackx</artifactId>
-        	<version>3.2.1</version>
+        	<version>${smack.version}</version>
         </dependency>
     </dependencies>
 

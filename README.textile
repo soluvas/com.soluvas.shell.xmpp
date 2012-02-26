@@ -1,0 +1,23 @@
+h1. Soluvas XMPP Shell
+
+*Copyright 2012 Soluvas*
+
+
+h2. Karaf Usage (Development)
+
+bc. install wrap:mvn:org.igniterealtime.smack/smack/3.2.1
+install wrap:mvn:org.igniterealtime.smack/smackx/3.2.1 
+install mvn:com.soluvas.shell/com.soluvas.shell.xmpp/1.0.0-SNAPSHOT
+dev:watch mvn:com.soluvas.shell/com.soluvas.shell.xmpp/*
+
+
+h2. License
+
+Apache License 2.0
+
+
+h2. Used Software
+
+This product uses software developed at
+The Apache Software Foundation (http://www.apache.org/).
+Licensed under the Apache License 2.0.

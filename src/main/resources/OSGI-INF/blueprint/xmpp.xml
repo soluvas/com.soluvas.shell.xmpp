@@ -16,12 +16,18 @@
 		</cm:default-properties>
 	</cm:property-placeholder>
 	
-<!--     <command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.0.0"> -->
-<!--         <command name="xmpp/hello"> -->
-<!--             <action class="com.soluvas.shell.xmpp.Hello"> -->
-<!--             </action> -->
-<!--         </command> -->
-<!--     </command-bundle> -->
+    <command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.0.0">
+        <command name="xmpp/connect">
+            <action class="com.soluvas.shell.xmpp.Connect">
+            	<property name="shell" ref="xmppShell"/>
+            </action>
+        </command>
+        <command name="xmpp/disconnect">
+            <action class="com.soluvas.shell.xmpp.Disconnect">
+            	<property name="shell" ref="xmppShell"/>
+            </action>
+        </command>
+    </command-bundle>
 
 	<bean id="xmppShell" class="com.soluvas.shell.xmpp.XmppShell"
 		init-method="init" destroy-method="destroy">
@@ -33,22 +39,5 @@
 			<reference interface="org.apache.felix.service.command.CommandProcessor"/>
 		</property>
 	</bean>
-
-	<bean id="helloCommands" class="com.soluvas.shell.xmpp.XmppCommands" init-method="init"
-		destroy-method="destroy">
-		<property name="shell" ref="xmppShell"/>
-	</bean>
-	<service ref="helloCommands" auto-export="all-classes">
-		<service-properties>
-			<entry key="osgi.command.scope" value="xmpp"/>
-			<entry key="osgi.command.function">
-				<array value-type="java.lang.String">
-					<value>hello</value>
-					<value>connect</value>
-					<value>disconnect</value>
-				</array>
-			</entry>
-		</service-properties>
-	</service>
 
 </blueprint>

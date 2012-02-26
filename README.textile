@@ -20,10 +20,6 @@ config:propset username karaf
 config:propset password password
 config:update
 
-Then refresh the bundle (e.g. bundle 54):
-
-bc. refresh 54
-
 To view XMPP Shell configuration:
 
 bc. config:list '(service.pid=com.soluvas.shell.xmpp)'

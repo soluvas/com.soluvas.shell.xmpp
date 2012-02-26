@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.io.Writer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -36,6 +35,7 @@ public class XmppShell {
 
 	private transient Logger log = LoggerFactory.getLogger(XmppShell.class);
 	
+	private boolean autoConnect = false;
 	private String serverHost = "localhost";
 	private String username = "karaf";
 	private String password = "";
@@ -43,8 +43,16 @@ public class XmppShell {
 	
 	private XMPPConnection conn;
 
-	@PostConstruct public void init() {
-		System.out.println("XMPPShell @PostConstruct!");
+	@PostConstruct public void init() throws Exception {
+		log.info("Soluvas XMPP Shell initialized");
+		if (autoConnect) {
+			new Thread("Soluvas XMPP Shell - Connect") {
+				@Override
+				public void run() {
+					connect();
+				}
+			}.start();
+		}
 	}
 	
 	@PreDestroy public void destroy() throws Exception {
@@ -253,31 +261,43 @@ public class XmppShell {
 		
 	}
 
-    public void connect() throws Exception {
+    public void connect() {
     	disconnect();
     	
     	conn = new XMPPConnection(getServerHost());
     	log.info("Connecting to {}...", serverHost);
-    	System.out.println(String.format("Connecting to %s...", getServerHost()));
-    	conn.connect();
+//    	System.out.println(String.format("Connecting to %s...", getServerHost()));
+    	try {
+			conn.connect();
+		} catch (XMPPException e) {
+			log.error("Cannot connect to " + serverHost, e);
+			throw new RuntimeException(e);
+		}
     	log.info("Connected to {}. Logging in as {}...", serverHost, username);
-    	System.out.println("Connected.");
-    	conn.login(getUsername(), getPassword());
+//    	System.out.println("Connected.");
+    	try {
+			conn.login(getUsername(), getPassword());
+		} catch (XMPPException e) {
+			log.error("Cannot login to " + serverHost + " as " + username, e);
+			conn.disconnect();
+			conn = null;
+			throw new RuntimeException(e);
+		}
     	log.info("Logged in to {} as {}", serverHost, username);
-    	System.out.println("Logged in.");
+//    	System.out.println("Logged in.");
     	ChatManager chatManager = conn.getChatManager();
     	chatManager.addChatListener(new ChatManagerListener() {
 			
 			@Override
 			public void chatCreated(Chat chat, boolean arg1) {
 				log.info("Got chat {}", chat.getParticipant());
-				System.out.println("Got chat " + chat.getParticipant());
+//				System.out.println("Got chat " + chat.getParticipant());
 				chat.addMessageListener(new MessageListener() {
 					
 					@Override
 					public void processMessage(final Chat chat, Message msg) {
 						log.info("Received: {}", msg.getBody());
-						System.out.println("Got message "+ msg.getBody());
+//						System.out.println("Got message "+ msg.getBody());
 						final OutputStream chatBuf = new OutputStream() {
 							
 							ByteArrayOutputStream byteBuf = new ByteArrayOutputStream();
@@ -339,7 +359,6 @@ public class XmppShell {
 							
 							@Override
 							public void write(byte[] b) throws IOException {
-								// TODO Auto-generated method stub
 								super.write(b);
 							}
 							
@@ -368,17 +387,17 @@ public class XmppShell {
 		});
    }
 	
-	public void disconnect() throws Exception {
+	public void disconnect() {
 		log.info("Disconnecting...");
-		System.out.println("Disconnecting...");
+//		System.out.println("Disconnecting...");
 		if (conn != null && conn.isConnected()) {
 			conn.disconnect();
 			conn = null;
 		}
 		log.info("Disconnected.");
-		System.out.println("Disconnected.");
+//		System.out.println("Disconnected.");
 	}
-
+	
 	public String getServerHost() {
 		return serverHost;
 	}
@@ -409,6 +428,14 @@ public class XmppShell {
 
 	public void setCommandProcessor(CommandProcessor commandProcessor) {
 		this.commandProcessor = commandProcessor;
+	}
+
+	public boolean isAutoConnect() {
+		return autoConnect;
+	}
+
+	public void setAutoConnect(boolean autoConnect) {
+		this.autoConnect = autoConnect;
 	}
 
 }

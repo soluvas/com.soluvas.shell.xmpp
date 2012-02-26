@@ -22,11 +22,9 @@ public class XmppCommands {
 	private XmppShell shell;
 
 	public XmppCommands() {
-		System.out.println("I am constructed!");
 	}
 	
 	@PostConstruct public void init() {
-		System.out.println("I am @PostConstruct!");
 	}
 	
 	@PreDestroy public void destroy() throws Exception {
@@ -35,7 +33,7 @@ public class XmppCommands {
 //	@Command(scope = "xmpp", name = "hello", description = "Say Hello")
 	@Descriptor("Say hello")
     public String hello() throws Exception {
-         System.out.println("Executing command hello");
+//         System.out.println("Executing command hello");
          return "Hello World!";
     }
     

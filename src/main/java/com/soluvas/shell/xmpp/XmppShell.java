@@ -29,15 +29,16 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author ceefour
- *
+ * Connects to an XMPP Server and exposes the GoGo Shell
+ * via XMPP chat messages.
  */
 public class XmppShell {
 
 	private transient Logger log = LoggerFactory.getLogger(XmppShell.class);
 	
-	private String serverHost = "annafi";
+	private String serverHost = "localhost";
 	private String username = "karaf";
-	private String password = "password";
+	private String password = "";
 	private CommandProcessor commandProcessor;
 	
 	private XMPPConnection conn;
@@ -256,10 +257,13 @@ public class XmppShell {
     	disconnect();
     	
     	conn = new XMPPConnection(getServerHost());
+    	log.info("Connecting to {}...", serverHost);
     	System.out.println(String.format("Connecting to %s...", getServerHost()));
     	conn.connect();
+    	log.info("Connected to {}. Logging in as {}...", serverHost, username);
     	System.out.println("Connected.");
     	conn.login(getUsername(), getPassword());
+    	log.info("Logged in to {} as {}", serverHost, username);
     	System.out.println("Logged in.");
     	ChatManager chatManager = conn.getChatManager();
     	chatManager.addChatListener(new ChatManagerListener() {

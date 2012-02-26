@@ -6,6 +6,14 @@
         http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0 http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0
         http://karaf.apache.org/xmlns/shell/v1.0.0 http://karaf.apache.org/xmlns/shell/v1.0.0">
         
+	<cm:property-placeholder persistent-id="com.soluvas.shell.xmpp" placeholder-prefix="$[" placeholder-suffix="]">
+		<cm:default-properties>
+			<cm:property name="serverHost" value="localhost"/>
+			<cm:property name="username" value="karaf"/>
+			<cm:property name="password" value=""/>
+		</cm:default-properties>
+	</cm:property-placeholder>
+	
 <!--     <command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.0.0"> -->
 <!--         <command name="xmpp/hello"> -->
 <!--             <action class="com.soluvas.shell.xmpp.Hello"> -->
@@ -15,6 +23,9 @@
 
 	<bean id="xmppShell" class="com.soluvas.shell.xmpp.XmppShell"
 		init-method="init" destroy-method="destroy">
+		<property name="serverHost" value="$[serverHost]"/>
+		<property name="username" value="$[username]"/>
+		<property name="password" value="$[password]"/>
 		<property name="commandProcessor">
 			<reference interface="org.apache.felix.service.command.CommandProcessor"/>
 		</property>

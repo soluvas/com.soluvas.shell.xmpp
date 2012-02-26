@@ -10,6 +10,34 @@ install wrap:mvn:org.igniterealtime.smack/smackx/3.2.1
 install mvn:com.soluvas.shell/com.soluvas.shell.xmpp/1.0.0-SNAPSHOT
 dev:watch mvn:com.soluvas.shell/com.soluvas.shell.xmpp/*
 
+h2. Configure
+
+To set XMPP Shell configuration:
+
+bc. config:edit com.soluvas.shell.xmpp
+config:propset serverHost annafi
+config:propset username karaf
+config:propset password password
+config:update
+
+Then refresh the bundle (e.g. bundle 54):
+
+bc. refresh 54
+
+To view XMPP Shell configuration:
+
+bc. config:list '(service.pid=com.soluvas.shell.xmpp)'
+
+h2. Connect and Disconnect
+
+Connect to XMPP Server:
+
+bc. xmpp:connect
+
+Disconnect from XMPP Server:
+
+bc. xmpp:disconnect
+
 
 h2. License
 

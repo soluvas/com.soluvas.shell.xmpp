@@ -41,11 +41,11 @@ bc. xmpp:disconnect
 
 h2. License
 
-Apache License 2.0
+"Apache License 2.0":http://www.apache.org/licenses/LICENSE-2.0.html
 
 
 h2. Used Software
 
 This product uses software developed at
-The Apache Software Foundation (http://www.apache.org/).
-Licensed under the Apache License 2.0.
+"The Apache Software Foundation":http://www.apache.org/.
+Licensed under the "Apache License 2.0":http://www.apache.org/licenses/LICENSE-2.0.html.

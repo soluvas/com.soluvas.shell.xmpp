@@ -30,6 +30,12 @@ Connect to XMPP Server:
 
 bc. xmpp:connect
 
+To auto-connect upon bundle activation:
+
+bc. config:edit com.soluvas.shell.xmpp
+config:propset autoConnect true
+config:update
+
 Disconnect from XMPP Server:
 
 bc. xmpp:disconnect
